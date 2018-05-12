@@ -5,21 +5,33 @@ library(shiny)
 select_values <- colnames(mpg)
 
 # Create a shinyUI with a `fluidPage` layout
-
+shinyUI(fluidPage(
   # A page header
-
+  h1("MPG Dataset"),
   
   # Add a select input for the x variable
-
+  selectInput(
+    "x_var", label = "X Variable", choices = select_values, selected = "displ"
+  ),
   
   # Add a select input for the y variable
-
+  selectInput(
+    "y_var", label = "Y Variable", choices = select_values, selected = "cyl"
+  ),
 
   # Add a sliderInput to set the size of each point
-
+  sliderInput("size", label = "Point Size", min = 1, max = 10, value = 1),
 
   # Add a selectInput that allows you to select a color from a list of choices
-
-
+  selectInput(
+    "color", label = "Color", choices = list("Red" = "red", "Green" = "green")
+  ),
 
   # Plot the output with the name "scatter"
+  plotOutput("scatter")
+))
+
+# Create a new `shinyApp()` using the above ui and server
+source("server.R")
+shinyApp(ui = ui, server = server)
+
